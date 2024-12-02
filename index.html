@@ -3,28 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeraBox Video Streaming</title>
+    <title>TeraBox Video Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
             margin: 0;
         }
-        iframe {
+        h1 {
+            margin-bottom: 20px;
+        }
+        video {
             width: 80%;
             max-width: 800px;
-            height: 450px;
             border: 2px solid #ccc;
             border-radius: 10px;
+            background-color: black;
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        .controls button {
+            background-color: #61dafb;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: black;
+            font-size: 16px;
+        }
+        .controls button:hover {
+            background-color: #21a1f1;
         }
     </style>
 </head>
 <body>
 
-    <iframe src="YOUR_TERABOX_VIDEO_LINK" frameborder="0" allowfullscreen></iframe>
+    <h1>TeraBox Video Player</h1>
+    <video id="videoPlayer" controls>
+        <source src="YOUR_VIDEO_URL" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="controls">
+        <button onclick="playVideo()">Play</button>
+        <button onclick="pauseVideo()">Pause</button>
+        <button onclick="stopVideo()">Stop</button>
+    </div>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+
+        function playVideo() {
+            video.play();
+        }
+
+        function pauseVideo() {
+            video.pause();
+        }
+
+        function stopVideo() {
+            video.pause();
+            video.currentTime = 0;
+        }
+    </script>
 
 </body>
 </html>
