@@ -1,37 +1,105 @@
-<h1>TeraBox File and Video Downloader</h1>
-<div class="input-container">
-    <input type="text" id="fileLink" placeholder="Enter TeraBox File/Video Link" />
-    <button onclick="downloadFile()">Download</button>
-</div>
-<div class="video-container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeraBox Video Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        video {
+            width: 80%;
+            max-width: 800px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: black;
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        .controls button {
+            background-color: #61dafb;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: black;
+            font-size: 16px;
+        }
+        .controls button:hover {
+            background-color: #21a1f1;
+        }
+        .input-container {
+            margin: 20px 0;
+        }
+        .input-container input {
+            padding: 10px;
+            width: 300px;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>TeraBox Video Player</h1>
+    <div class="input-container">
+        <input type="text" id="videoLink" placeholder="Enter TeraBox Video Link" />
+        <button onclick="loadVideo()">Load Video</button>
+    </div>
     <video id="videoPlayer" controls>
         <source id="videoSource" src="" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-</div>
+    <div class="controls">
+        <button onclick="playVideo()">Play</button>
+        <button onclick="pauseVideo()">Pause</button>
+        <button onclick="stopVideo()">Stop</button>
+    </div>
 
-<script>
-    function downloadFile() {
-        const link = document.getElementById('fileLink').value;
-        if (link) {
-            // Create a temporary anchor element to trigger the download
-            const a = document.createElement('a');
-            a.href = link;
-            a.download = ''; // This will prompt the user to download the file
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const videoSource = document.getElementById('videoSource');
 
-            // Load video if the link is a video file
-            if (link.endsWith('.mp4')) {
-                const videoSource = document.getElementById('videoSource');
+        function loadVideo() {
+            const link = document.getElementById('videoLink').value;
+            // Validate the link (basic validation)
+            if (link) {
                 videoSource.src = link;
-                const videoPlayer = document.getElementById('videoPlayer');
-                videoPlayer.load();
-                videoPlayer.play();
+                video.load();
+                video.play();
+            } else {
+                alert("Please enter a valid TeraBox video link.");
             }
-        } else {
-            alert("Please enter a valid TeraBox file or video link.");
         }
-    }
-</script>
+
+        function playVideo() {
+            video.play();
+        }
+
+        function pauseVideo() {
+            video.pause();
+        }
+
+        function stopVideo() {
+            video.pause();
+            video.currentTime = 0;
+        }
+    </script>
+
+</body>
+            </html>
