@@ -1,45 +1,92 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Streaming By Sakib</title>
+    <title>গেম খেলুন</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            flex-direction: column;
             height: 100vh;
-            background-color: #000000;
+            width: 100vw;
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
         }
-        video {
-            width: 80%;
-            max-width: 800px;
-            border: 2px solid #007bff;
-            border-radius: 10px;
-        }
-        h1 {
+        #message {
+            font-size: 24px;
+            font-weight: bold;
             margin-bottom: 20px;
+        }
+        #gameFrame {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #copyright {
+            position: absolute;
+            bottom: 10px;
+            font-size: 14px;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
-
-    <h1>Live Streaming</h1>
-    <p style="color:white;">Live Stream By Sakib</p>
-    <video id="liveStream" controls autoplay>
-        <source src="http://bb.thenayeemparvez.xyz/SonyMaxFHD/index.m3u8" type="application/x-mpegURL">
-        Your browser does not support the video tag.
-    </video>
+    <div id="message">গেম খেলুন!<br>অনুগ্রহ করে আপনার ফোনটি ঘুরান (Rotate করুন)।</div>
+    <iframe id="gameFrame" src="https://html-classic.itch.zone/html/12822958/Hasina%20game%20export/index.html"></iframe>
+    <div id="copyright">© shakib2016</div>
 
     <script>
-        // Optional: Handle errors
-        const video = document.getElementById('liveStream');
-        video.addEventListener('error', function() {
-            console.error('Error occurred while trying to play the video.');
-        });
-    </script>
+        function openFullscreen(element) {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) { // Firefox
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) { // Chrome, Safari & Opera
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) { // IE/Edge
+                element.msRequestFullscreen();
+            }
+        }
 
+        function checkOrientation() {
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById("message").style.display = "none";
+                let gameFrame = document.getElementById("gameFrame");
+                gameFrame.style.display = "block";
+
+                // ফুলস্ক্রিন চালু করা
+                openFullscreen(gameFrame);
+            } else {
+                document.getElementById("message").style.display = "flex";
+                document.getElementById("gameFrame").style.display = "none";
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // প্রথমবার চেক করা
+        checkOrientation();
+
+        // যখন স্ক্রিন রোটেট হবে, তখন চেক করবে
+        window.addEventListener("resize", checkOrientation);
+    </script>
 </body>
 </html>
